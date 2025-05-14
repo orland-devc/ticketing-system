@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\User;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
 class CreateStudent extends Command
@@ -26,6 +26,7 @@ class CreateStudent extends Command
         // Check if the user already exists
         if (User::where('email', $email)->exists()) {
             $this->error("User with email {$email} already exists.");
+
             return;
         }
 
@@ -35,8 +36,9 @@ class CreateStudent extends Command
             'name' => $name,
             'email' => $email,
             'password' => Hash::make($password),
-            'student_id' => $student_id
+            'student_id' => $student_id,
         ]);
 
         $this->info("{$user->user_code} created successfully!");
-    }}
+    }
+}

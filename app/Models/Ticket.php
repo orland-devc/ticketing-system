@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Ticket extends Model
 {
@@ -33,18 +33,17 @@ class Ticket extends Model
 
     public function generateTicketId(): string
     {
-        $encodedTime = base_convert(now()->format('dH'), 10, 36); 
+        $encodedTime = base_convert(now()->format('dH'), 10, 36);
         $randomCode = strtoupper(substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 4));
         $ticketId = "TKT{$encodedTime}{$randomCode}";
-    
+
         return $this->ticketExists($ticketId) ? $this->generateTicketId() : $ticketId;
     }
-    
+
     private function ticketExists(string $ticketId): bool
     {
         return Ticket::where('ticket_code', $ticketId)->exists();
     }
-    
 
     public function user()
     {
@@ -61,7 +60,7 @@ class Ticket extends Model
         return $this->hasMany(TicketReply::class);
     }
 
-    public function reply() 
+    public function reply()
     {
         return $this->hasOne(TicketReply::class)->latest('created_at');
     }
@@ -104,14 +103,14 @@ class Ticket extends Model
     public static function truncateWithRelations()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-    
+
         // Delete related records
         TicketReply::query()->delete();
         Attachment::query()->delete();
-    
+
         // Now truncate the table
         self::truncate();
-    
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

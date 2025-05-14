@@ -60,13 +60,13 @@ class User extends Authenticatable
 
     public function generateUserCode(): string
     {
-        $encodedTime = base_convert(now()->format('dH'), 10, 36); 
+        $encodedTime = base_convert(now()->format('dH'), 10, 36);
         $randomCode = strtoupper(substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 5));
         $userCode = "USR{$encodedTime}{$randomCode}";
-    
+
         return $this->userExists($userCode) ? $this->generateUserCode() : $userCode;
     }
-    
+
     private function userExists(string $userCode): bool
     {
         return User::where('user_code', $userCode)->exists();
@@ -115,7 +115,7 @@ class User extends Authenticatable
     public function last_login_at()
     {
         return $this->hasOne(ActivityLog::class)
-                    ->where('type', 'login')
-                    ->latest();
-    }    
+            ->where('type', 'login')
+            ->latest();
+    }
 }

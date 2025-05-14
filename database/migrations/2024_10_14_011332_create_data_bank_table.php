@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('data_bank', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
             $table->string('data_code')->nullable()->unique();
             $table->foreignId('author_id')->nullable()->constrained('users')->onDelete('cascade'); // Foreign key to users table
             $table->string('chatPattern');

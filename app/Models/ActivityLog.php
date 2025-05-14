@@ -23,13 +23,13 @@ class ActivityLog extends Model
 
     public function generateLogCode(): string
     {
-        $encodedTime = base_convert(now()->format('dH'), 10, 36); 
+        $encodedTime = base_convert(now()->format('dH'), 10, 36);
         $randomCode = strtoupper(substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 4));
         $logId = "LOG{$encodedTime}{$randomCode}";
-    
+
         return $this->logExists($logId) ? $this->generateLogCode() : $logId;
     }
-    
+
     private function logExists(string $logId): bool
     {
         return ActivityLog::where('log_code', $logId)->exists();

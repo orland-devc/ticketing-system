@@ -22,15 +22,10 @@ return new class extends Migration
             $table->unsignedBigInteger('sender_id')->nullable();
             $table->unsignedBigInteger('assigned_to')->nullable();
 
-
-
             $table->string('guest_name')->nullable();
             $table->date('guest_birthdate')->nullable();
             $table->string('guest_email')->nullable();
             $table->string('guest_tracking_token')->nullable()->unique();
-
-
-
 
             $table->timestamps();
 

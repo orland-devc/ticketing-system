@@ -10,7 +10,6 @@ use App\Models\TicketReply;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class TicketController extends Controller
 {
@@ -24,7 +23,7 @@ class TicketController extends Controller
 
     public function getAssignedTickets()
     {
-        $officeHead = Auth::user(); 
+        $officeHead = Auth::user();
         $dumps = Ticket::where('assigned_to', $officeHead->id)
             ->get()
             ->sortByDesc('updated_at');
@@ -76,7 +75,7 @@ class TicketController extends Controller
             [
                 'ticket_title' => $ticket->subject,
             ],
-            $ticket 
+            $ticket
         );
 
         return redirect()->route('tickets.index') // Redirect as needed
@@ -222,7 +221,7 @@ class TicketController extends Controller
 
         if ($request->assigned_office) {
             $assignedUser = User::where('name', $request->assigned_office)->first();
-    
+
             if ($assignedUser) {
                 $ticket->assigned_to = $assignedUser->id;
                 $ticket->status = 'open';
@@ -275,7 +274,7 @@ class TicketController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $ticket = Ticket::findOrFail($id); 
+        $ticket = Ticket::findOrFail($id);
         $ticket->status = 'closed';
         $ticket->save();
 
@@ -370,7 +369,7 @@ class TicketController extends Controller
             [
                 'reply_id' => $reply->id,
             ],
-            $ticket 
+            $ticket
         );
 
         if ($request->hasFile('attachments')) {

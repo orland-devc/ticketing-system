@@ -15,8 +15,9 @@ enum CategorySubjectEnum: string
     case UNIFORM = 'Uniform';
     case CAPSTONE = 'Capstone';
 
-    public function getAssign():string{
-        return match($this) {
+    public function getAssign(): string
+    {
+        return match ($this) {
             self::SYSTEM_ACCESS_ISSUE => 'Management Information Systems (MIS)',
             self::ADMISSIONS => 'Guidance and Admission Services',
             self::FACILITY_MAINTENANCE_REQUEST => 'General Services',

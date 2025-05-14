@@ -5,7 +5,6 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SignUpRequestController;
 use App\Http\Controllers\ChatbotController;
-use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataBankController;
 use App\Http\Controllers\EmailController;
